@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""method to check validate UTF-8 encoding"""
 from typing import List
 
 
