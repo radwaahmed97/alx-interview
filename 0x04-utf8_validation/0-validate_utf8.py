@@ -6,6 +6,6 @@ from typing import List
 def validUTF8(data: List[int]) -> bool:
     """returns True if data is valid UTF-8 encoding else return False"""
     for i in range(len(data)):
-        if data[i] > 128:
-            return False
-    return True
+        if data[i] in range(-128, 126):
+            return True
+        return False
