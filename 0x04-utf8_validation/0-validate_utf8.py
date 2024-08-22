@@ -8,4 +8,4 @@ def validUTF8(data: List[int]) -> bool:
     for i in range(len(data)):
         if data[i] > 128:
             return False
-        return True
+    return True
