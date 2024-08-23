@@ -5,26 +5,34 @@ from typing import List
 
 def validUTF8(data: List[int]) -> bool:
     """Returns True if data is valid UTF-8 encoding, else False"""
-    num_bytes = 0
+    number_bytes = 0
 
-    for byte in data:
-        if byte < 0 or byte > 255:
-            return False
+    mask_1_shift = 1 << 7
+    mask_2_shift = 1 << 6
 
-        if num_bytes == 0:
-            if (byte & 0b10000000) == 0:
+    for i in data:
+
+        mask_byte_shift = 1 << 7
+
+        if number_bytes == 0:
+
+            while mask_byte_shift & i:
+                number_bytes += 1
+                mask_byte_shift = mask_byte_shift >> 1
+
+            if number_bytes == 0:
                 continue
-            elif (byte & 0b11100000) == 0b11000000:
-                num_bytes = 1
-            elif (byte & 0b11110000) == 0b11100000:
-                num_bytes = 2
-            elif (byte & 0b11111000) == 0b11110000:
-                num_bytes = 3
-            else:
-                return False
-        else:
-            if (byte & 0b11000000) != 0b10000000:
-                return False
-            num_bytes -= 1
 
-    return num_bytes == 0
+            if number_bytes == 1 or number_bytes > 4:
+                return False
+
+        else:
+            if not (i & mask_1_shift and not (i & mask_2_shift)):
+                return False
+
+        number_bytes -= 1
+
+    if number_bytes == 0:
+        return True
+
+    return False
