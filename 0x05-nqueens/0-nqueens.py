@@ -48,7 +48,7 @@ def solve():
     on an NxN chessboard
     """
     if len(sys.argv) != 2:
-        print("Usage: nqueens N\n")
+        print("Usage: nqueens N")
         sys.exit(1)
     N = sys.argv[1]
     args_eligibility(N)
