@@ -1,21 +1,23 @@
 #!/usr/bin/python3
+"""making_change module"""
 
 
 def makeChange(coins, total):
-    if total <= 0:
+    """makeChange function"""
+    if total == 0:
         return 0
+    remainder = total
+    coins_counter = 0
+    coins_index = 0
     coins.sort(reverse=True)
-    coin_counter = 0
+    length = len(coins)
 
-    for coin in coins:
-        if total == 0:
-            break
-        if coin <= total:
-            count = total // coin
-            coin_counter += count
-            total -= count * coin
-
-    if total > 0:
-        return -1
-
-    return coin_counter
+    while remainder > 0:
+        if coins_index >= length:
+            return -1
+        if remainder - coins[coins_index] >= 0:
+            remainder -= coins[coins_index]
+            coins_counter += 1
+        else:
+            coins_index += 1
+    return coins_counter
