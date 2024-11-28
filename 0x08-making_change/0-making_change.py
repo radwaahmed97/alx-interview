@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-from math import floor
-
 
 def makeChange(coins, total):
     if total <= 0:
